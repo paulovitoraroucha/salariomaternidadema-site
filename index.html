@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salário-maternidade: entenda se você pode ter direito</title>
+<style>
+:root{
+  --vinho:#6E1230;
+  --vinho-claro:#8E2346;
+  --rosa:#F7EDEF;
+  --rosa-2:#FBF6F6;
+  --borda:#E6D3D8;
+  --texto:#2C2328;
+  --suave:#6B5A61;
+  --branco:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Segoe UI","Segoe UI Symbol",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  color:var(--texto);
+  background:var(--rosa-2);
+  line-height:1.65;
+  font-size:17px;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 64px}
+
+header.topo{
+  background:var(--vinho);
+  color:#fff;
+  padding:40px 20px 36px;
+  text-align:center;
+}
+header.topo .inner{max-width:720px;margin:0 auto}
+header.topo .olho{
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  opacity:.8;margin-bottom:12px;
+}
+header.topo h1{font-size:30px;line-height:1.25;font-weight:700;margin-bottom:14px}
+header.topo p{font-size:17px;opacity:.93;max-width:560px;margin:0 auto}
+
+section{margin-top:40px}
+h2{
+  font-size:22px;color:var(--vinho);font-weight:700;
+  margin-bottom:14px;line-height:1.3;
+}
+h3{font-size:18px;font-weight:600;margin:22px 0 8px}
+p{margin-bottom:14px}
+p.nota{font-size:15px;color:var(--suave)}
+
+.cartao{
+  background:var(--branco);border:1px solid var(--borda);
+  border-radius:14px;padding:22px;margin-bottom:16px;
+}
+.cartao h3{margin-top:0}
+
+.lista{list-style:none}
+.lista li{
+  padding:12px 0 12px 30px;position:relative;
+  border-bottom:1px solid var(--rosa);
+}
+.lista li:last-child{border-bottom:0}
+.lista li::before{
+  content:"";position:absolute;left:6px;top:21px;
+  width:8px;height:8px;border-radius:50%;background:var(--vinho-claro);
+}
+.lista strong{display:block;font-weight:600}
+.lista span{font-size:15px;color:var(--suave)}
+
+.destaque{
+  background:var(--rosa);border-left:4px solid var(--vinho);
+  border-radius:0 10px 10px 0;padding:18px 20px;margin:20px 0;
+}
+.destaque p:last-child{margin-bottom:0}
+
+/* ---- formulário ---- */
+.form-sec{
+  background:var(--branco);border:1px solid var(--borda);
+  border-radius:16px;padding:26px 22px;
+}
+fieldset{border:0;margin-bottom:26px}
+legend{font-weight:600;font-size:17px;margin-bottom:10px;display:block}
+.sub{font-size:15px;color:var(--suave);margin-bottom:12px}
+label.campo{display:block;margin-bottom:16px}
+label.campo span.rot{display:block;font-weight:600;margin-bottom:6px;font-size:16px}
+input[type=text],input[type=date],input[type=tel],select,textarea{
+  width:100%;padding:12px 14px;font-size:16px;font-family:inherit;
+  border:1px solid var(--borda);border-radius:10px;background:#fff;color:var(--texto);
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--vinho-claro);outline-offset:1px}
+textarea{min-height:90px;resize:vertical}
+
+.opcoes{display:flex;flex-direction:column;gap:8px}
+.opcao{
+  display:flex;align-items:flex-start;gap:11px;
+  border:1px solid var(--borda);border-radius:10px;
+  padding:13px 14px;cursor:pointer;background:#fff;
+  transition:border-color .15s,background .15s;
+}
+.opcao:hover{border-color:var(--vinho-claro)}
+.opcao input{margin-top:4px;accent-color:var(--vinho);flex:none;width:18px;height:18px}
+.opcao b{font-weight:600;display:block}
+.opcao em{font-style:normal;font-size:14.5px;color:var(--suave);display:block;margin-top:2px}
+.opcao:has(input:checked){border-color:var(--vinho);background:var(--rosa)}
+
+.btn{
+  display:block;width:100%;text-align:center;
+  background:var(--vinho);color:#fff;border:0;border-radius:12px;
+  padding:17px 20px;font-size:17.5px;font-weight:700;font-family:inherit;
+  cursor:pointer;text-decoration:none;
+}
+.btn:hover{background:var(--vinho-claro)}
+.btn.sec{background:#fff;color:var(--vinho);border:1.5px solid var(--vinho);margin-top:10px}
+.btn.sec:hover{background:var(--rosa)}
+
+#resultado{display:none;margin-top:26px;scroll-margin-top:16px}
+#resultado.on{display:block}
+.previa{
+  background:var(--rosa-2);border:1px dashed var(--borda);border-radius:12px;
+  padding:16px;font-size:15px;white-space:pre-wrap;color:var(--suave);
+  max-height:230px;overflow:auto;margin-bottom:16px;
+}
+
+/* ---- checklist ---- */
+.doc-grupo{margin-bottom:22px}
+.doc-grupo h4{
+  font-size:16px;font-weight:700;color:var(--vinho);
+  margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--borda);
+}
+.doc{display:flex;align-items:flex-start;gap:11px;padding:9px 0;font-size:16px}
+.doc input{margin-top:4px;accent-color:var(--vinho);flex:none;width:18px;height:18px}
+.doc input:checked + span{text-decoration:line-through;color:var(--suave)}
+
+footer{
+  margin-top:50px;padding-top:26px;border-top:1px solid var(--borda);
+  font-size:14.5px;color:var(--suave);text-align:center;
+}
+footer .nome{font-weight:700;color:var(--vinho);font-size:16px;display:block;margin-bottom:3px}
+footer .aviso{
+  margin-top:18px;font-size:13.5px;line-height:1.6;
+  background:var(--rosa-2);border:1px solid var(--borda);
+  border-radius:10px;padding:14px;text-align:left;
+}
+
+@media print{
+  header.topo,.form-sec,.btn,#intro-print-hide{display:none!important}
+  body{background:#fff;font-size:12pt}
+  .doc-grupo{break-inside:avoid}
+}
+@media (max-width:480px){
+  header.topo h1{font-size:25px}
+  body{font-size:16.5px}
+  .wrap{padding:0 16px 48px}
+  .form-sec{padding:20px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="inner">
+    <div class="olho">Informação jurídica</div>
+    <h1>Salário-maternidade:<br>entenda se você pode ter direito</h1>
+    <p>Um guia para gestantes e mães sobre um benefício do INSS que muita mulher deixa de receber simplesmente por não saber que ele existe.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="intro-print-hide">
+  <h2>O que é</h2>
+  <p>O salário-maternidade é um benefício pago pelo INSS à mulher que teve filho, adotou ou obteve guarda judicial para fins de adoção. Em regra ele é pago por 120 (cento e vinte) dias.</p>
+  <p>Existe uma ideia muito difundida de que o benefício seria só de quem trabalha de carteira assinada. Não é. A lei organiza o direito pela condição de segurada do INSS, e há várias formas de ser segurada sem ter vínculo registrado.</p>
+
+  <div class="destaque">
+    <h3 style="margin-top:0">Quem paga, e onde pedir</h3>
+    <p>Para a empregada com vínculo formal ativo, quem paga é a própria empresa, que depois compensa o valor nas contribuições previdenciárias. Nos demais casos, inclusive o da empregada doméstica e o de quem foi demitida e está no período de graça, o pagamento é feito diretamente pelo INSS.</p>
+    <p style="margin-bottom:0" class="nota">Vale saber disso antes de pedir: empregada com vínculo ativo que faz o requerimento no Meu INSS costuma ter o pedido negado, porque o caminho dela é a empresa.</p>
+  </div>
+
+  <h2>Quem pode ter direito</h2>
+  <p class="nota">A lista abaixo serve para você identificar em qual grupo está. Cada caso tem particularidades que precisam ser examinadas individualmente.</p>
+  <ul class="lista">
+    <li><strong>Trabalhadora com carteira assinada</strong><span>Vínculo formal ativo na data do parto, da adoção ou do afastamento.</span></li>
+    <li><strong>Empregada doméstica</strong><span>Com registro em carteira.</span></li>
+    <li><strong>Trabalhadora avulsa</strong><span>Contratada por sindicato ou órgão gestor de mão de obra, sem vínculo fixo, como nas atividades portuárias.</span></li>
+    <li><strong>MEI</strong><span>Microempreendedora individual que recolhe o DAS.</span></li>
+    <li><strong>Contribuinte individual (autônoma ou profissional liberal)</strong><span>Que recolhe o INSS por conta própria, pelo carnê ou pela Guia GPS.</span></li>
+    <li><strong>Empresária ou sócia que recebe pró-labore</strong><span>Sócia de empresa que retira pró-labore e contribui sobre ele.</span></li>
+    <li><strong>Contribuinte facultativa</strong><span>Dona de casa ou estudante que paga o INSS.</span></li>
+    <li><strong>Segurada em período de graça</strong><span>Saiu do emprego, inclusive por demissão durante ou depois da gravidez, ou parou de contribuir, mas ainda tinha qualidade de segurada na data do parto. O prazo varia conforme o caso e pode ser prorrogado.</span></li>
+    <li><strong>Segurada especial</strong><span>Trabalhadora rural, pescadora artesanal ou extrativista que comprova atividade.</span></li>
+  </ul>
+
+  <p class="nota">A lei também assegura o benefício ao segurado que adota ou obtém guarda judicial para fins de adoção, inclusive ao pai, e, no caso de falecimento de quem tinha direito, ao cônjuge ou companheiro sobrevivente que mantenha a qualidade de segurado.</p>
+
+  <div class="destaque">
+    <h3 style="margin-top:0">Quem tinha mais de uma atividade ao mesmo tempo</h3>
+    <p>Mulher que exercia duas atividades ao mesmo tempo, como emprego com carteira assinada e, em paralelo, atividade como autônoma, MEI ou sócia de empresa, pode ter direito ao benefício em relação a cada uma delas.</p>
+    <p class="nota" style="margin-bottom:0">O direito é apurado atividade por atividade, e cada uma precisa cumprir os seus próprios requisitos. Se é o seu caso, vale examinar, porque é uma situação que costuma passar despercebida no pedido feito sem orientação.</p>
+  </div>
+
+  <h2>Em quais situações</h2>
+  <ul class="lista">
+    <li><strong>Parto</strong><span>O pedido pode ser antecipado em até 28 (vinte e oito) dias antes do parto, com atestado médico.</span></li>
+    <li><strong>Adoção ou guarda judicial para fins de adoção</strong></li>
+    <li><strong>Perda gestacional</strong><span>A legislação previdenciária também protege a mulher nessa situação, com regras próprias conforme o tempo de gestação.</span></li>
+  </ul>
+
+  <div class="destaque">
+    <h3 style="margin-top:0">Quem teve bebê há algum tempo ainda pode pedir</h3>
+    <p>Na prática, o prazo para requerer o salário-maternidade é de 5 (cinco) anos. Mãe que não pediu na época pode requerer dentro desse período, inclusive com os valores atrasados.</p>
+    <p class="nota" style="margin-bottom:0">A contagem é feita parcela a parcela, e não a partir da data do parto, de modo que casos um pouco acima de cinco anos ainda podem ter parte do valor preservada. Se o seu caso está nessa faixa, vale verificar em vez de desistir.</p>
+  </div>
+
+  <h2>O que costuma fazer o INSS negar</h2>
+  <p>Vale a pena guardar desde a gestação tudo que prove a sua atividade e as suas contribuições. Os indeferimentos mais comuns têm a ver com contribuição recolhida fora do prazo ou em competência errada, com perda da qualidade de segurada por tempo sem contribuir, com ausência de prova de atividade rural no caso da segurada especial, e com cadastro desatualizado no CNIS.</p>
+  <div class="destaque">
+    <p style="margin-bottom:0">Se você tem guias do INSS atrasadas, vale conferir a situação antes de pagar. Em algumas hipóteses o pagamento feito fora do momento certo não aproveita ao benefício.</p>
+  </div>
+</section>
+
+<!-- ============ TRIAGEM ============ -->
+<section id="triagem">
+  <h2>Verifique a sua situação</h2>
+  <p>As perguntas abaixo organizam as informações que importam para analisar um caso de salário-maternidade. Ao final, a página monta um resumo e a sua lista de documentos.</p>
+  <p class="nota"><strong>Nada é gravado nem enviado automaticamente.</strong> O resumo só sai do seu celular se você quiser e apertar o botão no fim.</p>
+
+  <form class="form-sec" id="form" novalidate>
+
+    <fieldset>
+      <legend>1. Sobre você</legend>
+      <label class="campo"><span class="rot">Seu nome</span>
+        <input type="text" id="nome" autocomplete="name" placeholder="Nome completo"></label>
+      <label class="campo"><span class="rot">Cidade onde mora</span>
+        <input type="text" id="cidade" placeholder="Cidade e estado"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Sobre o bebê</legend>
+      <div class="opcoes" style="margin-bottom:14px">
+        <label class="opcao"><input type="radio" name="momento" value="gravida"><span><b>Estou grávida</b></span></label>
+        <label class="opcao"><input type="radio" name="momento" value="nasceu"><span><b>O bebê já nasceu</b></span></label>
+        <label class="opcao"><input type="radio" name="momento" value="adocao"><span><b>Adoção ou guarda judicial</b></span></label>
+        <label class="opcao"><input type="radio" name="momento" value="perda"><span><b>Tive uma perda gestacional</b><em>Sentimos muito. A lei também protege você nessa situação.</em></span></label>
+      </div>
+      <label class="campo"><span class="rot" id="rot-data">Data (nascimento, previsão, adoção ou ocorrência)</span>
+        <input type="date" id="data"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Como você trabalhava na época</legend>
+      <div class="sub">Marque a situação mais próxima da sua no período da gestação.</div>
+      <div class="opcoes">
+        <label class="opcao"><input type="radio" name="cat" value="clt"><span><b>Carteira assinada</b><em>Vínculo formal ativo na data do parto, da adoção ou do afastamento</em></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="domestica"><span><b>Empregada doméstica</b></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="avulsa"><span><b>Trabalhadora avulsa</b><em>Contratada por sindicato ou órgão gestor de mão de obra, sem vínculo fixo</em></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="mei"><span><b>MEI</b><em>Com CNPJ de microempreendedora individual</em></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="autonoma"><span><b>Contribuinte individual</b><em>Autônoma ou profissional liberal que recolhe por conta própria, pelo carnê ou pela Guia GPS</em></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="empresaria"><span><b>Empresária ou sócia com pró-labore</b><em>Sócia de empresa que retirava pró-labore</em></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="facultativa"><span><b>Dona de casa ou estudante</b></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="rural"><span><b>Segurada especial</b><em>Trabalhadora rural, pescadora artesanal ou extrativista</em></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="desempregada"><span><b>Em período de graça</b><em>Saiu do emprego ou parou de contribuir, mas ainda tinha qualidade de segurada na data do parto</em></span></label>
+        <label class="opcao"><input type="radio" name="cat" value="nenhuma"><span><b>Não trabalhava nem contribuía</b></span></label>
+      </div>
+
+      <div style="margin-top:18px">
+        <div class="sub" style="font-weight:600;color:var(--texto);font-size:16px;margin-bottom:8px">Você tinha mais de uma atividade ao mesmo tempo?</div>
+        <div class="opcoes">
+          <label class="opcao"><input type="radio" name="concom" value="sim"><span><b>Sim, tinha mais de uma</b><em>Por exemplo, emprego registrado e, em paralelo, MEI, autônoma ou sócia de empresa</em></span></label>
+          <label class="opcao"><input type="radio" name="concom" value="nao"><span><b>Não, só uma</b></span></label>
+        </div>
+        <label class="campo" style="margin-top:12px"><span class="rot">Se sim, quais eram as atividades?</span>
+          <input type="text" id="concomquais" placeholder="Descreva as duas, mesmo que resumidamente"></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Contribuição ao INSS</legend>
+      <div class="sub">Vale qualquer forma: desconto em carteira, carnê, guia, DAS do MEI.</div>
+      <div class="opcoes" style="margin-bottom:14px">
+        <label class="opcao"><input type="radio" name="contrib" value="sim"><span><b>Sim, já contribuí</b></span></label>
+        <label class="opcao"><input type="radio" name="contrib" value="nao"><span><b>Nunca contribuí</b></span></label>
+        <label class="opcao"><input type="radio" name="contrib" value="naosei"><span><b>Não sei dizer</b></span></label>
+      </div>
+      <label class="campo"><span class="rot">Mais ou menos quando foi a última contribuição?</span>
+        <input type="text" id="ultima" placeholder="Mês e ano, mesmo que aproximado"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Você já pediu no INSS?</legend>
+      <div class="opcoes">
+        <label class="opcao"><input type="radio" name="pedido" value="nao"><span><b>Ainda não pedi</b></span></label>
+        <label class="opcao"><input type="radio" name="pedido" value="analise"><span><b>Pedi e está em análise</b></span></label>
+        <label class="opcao"><input type="radio" name="pedido" value="negado"><span><b>Pedi e foi negado</b></span></label>
+        <label class="opcao"><input type="radio" name="pedido" value="recebi"><span><b>Já recebi por esse filho</b></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Mais alguma destas situações?</legend>
+      <div class="opcoes">
+        <label class="opcao"><input type="checkbox" class="extra" value="Já recebeu salário-maternidade de outro filho"><span><b>Já recebi por outro filho antes</b></span></label>
+        <label class="opcao"><input type="checkbox" class="extra" value="Internação após o parto (mãe ou bebê)"><span><b>Eu ou o bebê ficamos internados depois do parto</b></span></label>
+        <label class="opcao"><input type="checkbox" class="extra" value="Recebeu seguro-desemprego no período"><span><b>Recebi seguro-desemprego nesse período</b></span></label>
+        <label class="opcao"><input type="checkbox" class="extra" value="Tem guias do INSS em atraso"><span><b>Tenho guias do INSS atrasadas</b></span></label>
+      </div>
+      <label class="campo" style="margin-top:14px"><span class="rot">Quer acrescentar alguma coisa?</span>
+        <textarea id="obs" placeholder="Opcional"></textarea></label>
+    </fieldset>
+
+    <button type="button" class="btn" id="gerar">Ver meu resumo e minha lista de documentos</button>
+  </form>
+
+  <div id="resultado">
+    <section>
+      <h2>Seu resumo</h2>
+      <p class="nota">Este é o texto que será enviado se você escolher mandar pelo WhatsApp. Confira antes. Ao enviar, você concorda que essas informações, que podem incluir dados sobre a sua gestação, sejam usadas apenas para analisar o seu caso.</p>
+      <div class="previa" id="previa"></div>
+      <a class="btn" id="zap" href="#" target="_blank" rel="noopener">Enviar este resumo pelo WhatsApp</a>
+      <button type="button" class="btn sec" id="copiar">Copiar o texto</button>
+      <div class="destaque" style="margin-top:20px">
+        <h3 style="margin-top:0">E os documentos?</h3>
+        <p>Os documentos não são enviados por esta página. Depois de mandar o resumo acima, é só enviar as fotos ou os arquivos na mesma conversa do WhatsApp.</p>
+        <p style="margin-bottom:0" class="nota">Serve foto tirada pelo celular ou arquivo em PDF, os dois funcionam. Mande só o que já tiver em mãos; o resto pode vir depois.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Sua lista de documentos</h2>
+      <p class="nota">Montada de acordo com o que você marcou. Dá para ir marcando aqui mesmo, e dá para salvar em PDF pelo botão no fim.</p>
+      <div class="cartao" id="checklist"></div>
+      <button type="button" class="btn sec" id="imprimir">Salvar esta lista em PDF</button>
+    </section>
+  </div>
+</section>
+
+<footer>
+  <span class="nome">Paulo Vitor Paz Aroucha</span>
+  Advogado &middot; OAB/MA n&ordm; 10.906<br>
+  Paulo Vitor Paz Aroucha Sociedade Individual de Advocacia<br>
+  OAB/MA n&ordm; 2400112
+
+  <div class="aviso">
+    <strong>Aviso.</strong> Esta página tem conteúdo meramente informativo, nos termos do Provimento n&ordm; 205/2021 do Conselho Federal da OAB. Não constitui oferta de serviços advocatícios, promessa de resultado nem consulta jurídica, e não substitui a análise individual de cada caso. O direito ao benefício e o seu valor dependem dos requisitos legais aplicáveis à situação de cada pessoa.
+    <br><br>
+    <strong>Seus dados.</strong> As respostas ficam apenas no seu aparelho. Nada é gravado, armazenado ou transmitido por esta página, que não possui banco de dados. O resumo só é enviado se você tocar no botão de envio.
+    <br><br>
+    Se você escolher enviar, as informações chegam ao escritório pelo WhatsApp e passam a ser usadas apenas para analisar o seu caso e orientar você, por quem é obrigado a sigilo profissional. Não são compartilhadas com terceiros nem usadas para qualquer outra finalidade. Você pode, a qualquer momento, pedir a correção ou a exclusão do que enviou, pelo mesmo WhatsApp ou pelo e-mail paulovitoraroucha@hotmail.com.
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var ZAP = "5598982184282";
+
+  var DOCS_BASE = ["RG e CPF, ou CNH, ou a nova carteira de identidade (CIN)",
+    "Comprovante de residência dos últimos 3 meses",
+    "Carteira de trabalho, física ou digital",
+    "Acesso ao gov.br / Meu INSS",
+    "Dados bancários em seu nome"];
+
+  var DOCS_MOMENTO = {
+    nasceu:["Certidão de nascimento do bebê"],
+    gravida:["Cartão da gestante ou cartão de pré-natal","Atestado médico com a data provável do parto"],
+    adocao:["Termo de guarda ou sentença de adoção","Certidão de nascimento da criança, se já tiver"],
+    perda:["Certidão de natimorto ou atestado médico","Relatório do hospital ou papel da alta"]
+  };
+
+  var DOCS_CAT = {
+    clt:["Termo de rescisão (TRCT), se saiu do emprego","Últimos contracheques","Comprovante do seguro-desemprego, se recebeu"],
+    domestica:["Carteira de trabalho com o registro","Guias do eSocial pagas pelo empregador, se tiver acesso","Nome e telefone do empregador"],
+    avulsa:["Declaração do sindicato ou do órgão gestor de mão de obra","Comprovantes dos períodos trabalhados e das contribuições","Carteira de trabalho com as anotações do período"],
+    mei:["Certificado do MEI (CCMEI) ou cartão CNPJ","Comprovantes dos DAS pagos, principalmente dos meses anteriores ao parto","Prova de que trabalhava: notas, prints de vendas, redes do negócio, conversas com clientes"],
+    autonoma:["Carnês ou guias do INSS pagos, com comprovante","Prova de que trabalhava: recibos, notas, prints de vendas, declarações de clientes"],
+    empresaria:["Contrato social ou última alteração contratual","Recibos ou folha do pró-labore dos meses anteriores ao parto","Guias de recolhimento do INSS sobre o pró-labore, com comprovante de pagamento","Cartão CNPJ da empresa"],
+    facultativa:["Carnês ou guias do INSS pagos, com comprovante","Folha do CadÚnico atualizada, se paga a guia de 5% (pegue no CRAS)"],
+    rural:["Documentos da terra: ITR, CCIR, escritura, contrato de arrendamento ou declaração do dono com RG dele",
+      "CAF ou DAP, cadastro de agricultor familiar, se tiver",
+      "Cartão da gestante do posto de saúde da região",
+      "Ficha do sindicato rural e recibos de mensalidade, se tiver",
+      "Notas de venda da produção, se tiver",
+      "Certidões que tragam a profissão de lavradora ou agricultora",
+      "Ficha escolar dos filhos, se for escola da zona rural",
+      "Se pescadora: carteira de pescadora (RGP) e comprovante do seguro-defeso",
+      "Fotos da roça, da plantação ou da criação",
+      "Nome, CPF e endereço de 3 vizinhos que saibam da sua atividade, sem parentesco"],
+    desempregada:["Termo de rescisão (TRCT) do último emprego","Comprovante do seguro-desemprego, se recebeu","Carteira de trabalho com todos os registros"],
+    nenhuma:[]
+  };
+
+  var DOCS_EXTRA = {
+    "Já recebeu salário-maternidade de outro filho":["Carta do INSS do benefício anterior, ou print do extrato no Meu INSS","Certidão de nascimento do primeiro filho"],
+    "Internação após o parto (mãe ou bebê)":["Relatório médico com a data da internação e da alta"],
+    "Recebeu seguro-desemprego no período":["Extrato ou comprovante das parcelas do seguro-desemprego"],
+    "Tem guias do INSS em atraso":["Relação das competências em aberto, antes de pagar qualquer uma"]
+  };
+
+  var DOCS_PEDIDO = {
+    analise:["Número do protocolo do pedido"],
+    negado:["Número do protocolo","Carta de indeferimento ou print da resposta do INSS"],
+    recebi:["Extrato do benefício já recebido"]
+  };
+
+  var ROT_MOMENTO = {gravida:"Grávida",nasceu:"Bebê já nasceu",adocao:"Adoção ou guarda",perda:"Perda gestacional"};
+  var ROT_CAT = {clt:"Carteira assinada (vínculo ativo)",domestica:"Empregada doméstica",avulsa:"Trabalhadora avulsa",
+    mei:"MEI",autonoma:"Contribuinte individual (autônoma ou profissional liberal)",
+    empresaria:"Empresária ou sócia com pró-labore",
+    facultativa:"Dona de casa ou estudante",rural:"Segurada especial (rural, pesca ou extrativismo)",
+    desempregada:"Em período de graça",nenhuma:"Não trabalhava nem contribuía"};
+  var DOCS_CONCOM = ["Documentos da segunda atividade: contrato, registro em carteira, CNPJ ou contrato social",
+    "Comprovantes de contribuição ao INSS pelas duas atividades, nos meses anteriores ao parto",
+    "Prova de que as duas atividades estavam ativas na data do parto"];
+  var ROT_CONTRIB = {sim:"Sim",nao:"Nunca contribuiu",naosei:"Não sabe dizer"};
+  var ROT_PEDIDO = {nao:"Ainda não pediu",analise:"Em análise",negado:"Foi negado",recebi:"Já recebeu por esse filho"};
+  var ROT_DATA = {gravida:"Data provável do parto",nasceu:"Data de nascimento do bebê",
+    adocao:"Data da adoção ou da guarda",perda:"Data da ocorrência"};
+
+  function q(id){return document.getElementById(id);}
+  function val(id){var e=q(id);return e?e.value.trim():"";}
+  function radio(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"";}
+  function dataBR(v){if(!v)return"";var p=v.split("-");return p.length===3?p[2]+"/"+p[1]+"/"+p[0]:v;}
+
+  document.querySelectorAll('input[name="momento"]').forEach(function(r){
+    r.addEventListener("change",function(){
+      q("rot-data").textContent = ROT_DATA[r.value] || "Data";
+    });
+  });
+
+  function montar(){
+    var momento=radio("momento"), cat=radio("cat"), contrib=radio("contrib"), pedido=radio("pedido"), concom=radio("concom");
+    var extras=[].slice.call(document.querySelectorAll(".extra:checked")).map(function(c){return c.value;});
+
+    // ---- resumo ----
+    var L=[];
+    L.push("Olá! Preenchi o questionário sobre salário-maternidade na sua página. Segue o meu resumo:");
+    L.push("");
+    if(val("nome")) L.push("Nome: "+val("nome"));
+    if(val("cidade")) L.push("Cidade: "+val("cidade"));
+    if(momento) L.push("Situação: "+ROT_MOMENTO[momento]);
+    if(val("data")) L.push((ROT_DATA[momento]||"Data")+": "+dataBR(val("data")));
+    if(cat) L.push("Como trabalhava na época: "+ROT_CAT[cat]);
+    if(concom==="sim") L.push("Tinha mais de uma atividade ao mesmo tempo: sim"+(val("concomquais")?" ("+val("concomquais")+")":""));
+    else if(concom==="nao") L.push("Tinha mais de uma atividade ao mesmo tempo: não");
+    if(contrib) L.push("Já contribuiu para o INSS: "+ROT_CONTRIB[contrib]);
+    if(val("ultima")) L.push("Última contribuição: "+val("ultima"));
+    if(pedido) L.push("Pedido no INSS: "+ROT_PEDIDO[pedido]);
+    if(extras.length){L.push("Outras situações: "+extras.join("; "));}
+    if(val("obs")){L.push("");L.push("Observação: "+val("obs"));}
+    L.push("");
+    L.push("Vou enviar as fotos dos documentos aqui nesta conversa.");
+    var texto=L.join("\n");
+    q("previa").textContent=texto;
+    q("zap").href="https://wa.me/"+ZAP+"?text="+encodeURIComponent(texto);
+
+    // ---- checklist ----
+    var grupos=[];
+    grupos.push({t:"Documentos que toda mãe precisa",itens:DOCS_BASE});
+    if(momento && DOCS_MOMENTO[momento] && DOCS_MOMENTO[momento].length)
+      grupos.push({t:ROT_MOMENTO[momento],itens:DOCS_MOMENTO[momento]});
+    if(cat && DOCS_CAT[cat] && DOCS_CAT[cat].length)
+      grupos.push({t:"Da sua situação: "+ROT_CAT[cat],itens:DOCS_CAT[cat]});
+    if(concom==="sim") grupos.push({t:"Mais de uma atividade ao mesmo tempo",itens:DOCS_CONCOM});
+    var ex=[];
+    extras.forEach(function(e){ (DOCS_EXTRA[e]||[]).forEach(function(d){ if(ex.indexOf(d)<0) ex.push(d); }); });
+    if(DOCS_PEDIDO[pedido]) DOCS_PEDIDO[pedido].forEach(function(d){ if(ex.indexOf(d)<0) ex.push(d); });
+    if(ex.length) grupos.push({t:"Outros documentos do seu caso",itens:ex});
+
+    var html="";
+    grupos.forEach(function(g,gi){
+      html+='<div class="doc-grupo"><h4>'+g.t+'</h4>';
+      g.itens.forEach(function(it,i){
+        html+='<label class="doc"><input type="checkbox" id="d'+gi+'_'+i+'"><span>'+it+'</span></label>';
+      });
+      html+='</div>';
+    });
+    html+='<div class="destaque" style="margin-bottom:0"><p style="margin-bottom:8px"><strong>Como enviar os documentos.</strong> Mande pelo WhatsApp, na mesma conversa em que você enviou o resumo. Pode ser foto tirada pelo celular ou arquivo em PDF. Na foto, use boa luz e mostre o documento inteiro, frente e verso. Não precisa autenticar em cartório.</p>'
+       +'<p style="margin-bottom:0" class="nota">Se faltar algum documento da lista, isso não significa necessariamente que você não tem direito. Vários deles podem ser substituídos por outras provas.</p></div>';
+    q("checklist").innerHTML=html;
+
+    var r=q("resultado"); r.classList.add("on");
+    r.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  q("gerar").addEventListener("click",montar);
+  q("imprimir").addEventListener("click",function(){window.print();});
+  q("copiar").addEventListener("click",function(){
+    var t=q("previa").textContent, b=q("copiar");
+    function ok(){b.textContent="Texto copiado";setTimeout(function(){b.textContent="Copiar o texto";},2000);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(ok,function(){fallback(t,ok);});
+    } else {fallback(t,ok);}
+  });
+  function fallback(t,cb){
+    try{
+      var a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";
+      document.body.appendChild(a);a.select();document.execCommand("copy");document.body.removeChild(a);cb();
+    }catch(e){}
+  }
+})();
+</script>
+</body>
+</html>
